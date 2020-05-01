@@ -24,7 +24,7 @@ class DemoFixtures extends Fixture
             $participant->setNomParticipant('participant'.$j)
               ->setPrenomParticipant('prenom'.$j)
               ->addCategory($categorie);
-              $manager->persist($categorie);
+              $manager->persist($participant);
           }
         }
 
