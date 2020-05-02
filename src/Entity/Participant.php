@@ -58,9 +58,17 @@ class Participant
      */
     private $categories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="participant", orphanRemoval=true)
+     */
+    private $resultats;
+
+    
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->resultats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,4 +185,37 @@ class Participant
 
         return $this;
     }
+
+    /**
+     * @return Collection|Resultat[]
+     */
+    public function getResultats(): Collection
+    {
+        return $this->resultats;
+    }
+
+    public function addResultat(Resultat $resultat): self
+    {
+        if (!$this->resultats->contains($resultat)) {
+            $this->resultats[] = $resultat;
+            $resultat->setParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResultat(Resultat $resultat): self
+    {
+        if ($this->resultats->contains($resultat)) {
+            $this->resultats->removeElement($resultat);
+            // set the owning side to null (unless already changed)
+            if ($resultat->getParticipant() === $this) {
+                $resultat->setParticipant(null);
+            }
+        }
+
+        return $this;
+    }
+
+   
 }
