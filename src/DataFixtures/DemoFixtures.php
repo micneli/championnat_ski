@@ -12,70 +12,58 @@ use App\Entity\Competition;
 
 class DemoFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
-    {
-        // $product = new Product();
-        // $manager->persist($product);
 
-        for($i = 0; $i < 4; $i++) {
-          $categorie = new Categorie();
-          $categorie->setNomCategorie('categorie'.$i);
-          $manager->persist($categorie);
-          for($j = 0; $j < 4; $j++) {
-            $participant = new Participant();
-            $participant->setNomParticipant('participant'.$j)
-              ->setPrenomParticipant('prenom'.$j)
-              ->addCategory($categorie);
-              $manager->persist($participant);
-          }
-        }
-        for($i = 0; $i < 4; $i++) {
 
-          $time = \DateTime::createFromFormat('i:s.u','03:01.012345Z');
+  public function load(ObjectManager $manager)
+  {
 
-          $resultat= new Resultat();
-          
-
-          $resultat->setResultat1(new \DateTime())
-          
-            ->setResultat2(new \DateTime())
-            ->setResultatFinal(new \DateTime());
-
-          $manager->persist($resultat);
-       
+    for ($i = 0; $i < 4; $i++) {
+      $categorie = new Categorie();
+      $categorie->setNomCategorie('categorie' . $i);
+      $manager->persist($categorie);
+      for ($j = 0; $j < 4; $j++) {
+        $participant = new Participant();
+        $participant->setNomParticipant('participant' . $j)
+          ->setPrenomParticipant('prenom' . $j)
+          ->addCategory($categorie);
+        $manager->persist($participant);
+      }
     }
+
+    for ($l = 0; $l < 4; $l++) { //boucke pour fixture resultat
+
+      $time = \DateTime::createFromFormat('i:s.u', '03:01.012345Z'); // creation format date
+
+      $resultat = new Resultat();
+      $competition = new Competition();
+      $participant = new Participant();
+      $categorie = new Categorie();
+
+      $resultat->setResultat1(new \DateTime()) //renvoie l'heure d'aujourd'hui
+
+        ->setResultat2(new \DateTime())
+        ->setResultatFinal(new \DateTime());
+        // ->setCompetitions($competition)
+        // ->setCategories($categorie)
+        // ->setParticipants($participant);
+
+      $manager->persist($resultat);
+     // $manager->merge($competition, $categorie, $participant);
+    }
+
+    for ($k = 0; $k < 4; $k++) {
+
+      $date = \DateTime::createFromFormat('j-M-Y', '15-Feb-2009'); // creation format date
+      $resultat = new Resultat();
+      $competition = new Competition();
+      $competition->setVilleCompetition('villeCompetition' . $k) //renvoie l'heure d'aujourd'hui
+
+        ->setDateCompetition(new \DateTime())
+        ->addResultat($resultat);
+      $manager->merge($competition);
+    }
+
+
     $manager->flush();
   }
-    // public function loadResultat(ObjectManager $manager)
-    // {
-    //     $product = new Product();
-    //     $manager->persist($product);
-
-    //     for($i = 0; $i < 4; $i++) {
-
-    //       $time = \DateTime::createFromFormat('i:s.u','01:02:03');
-
-    //       $resultat= new Resultat();
-          
-
-    //       $resultat->$time->setResultat1(new \DateTime('01:02:03'))
-
-    //         ->setResultat2(date('i:s.u').$i)
-    //         ->setResultatFinal(date('i:s.u').$i);
-
-    //       $manager->persist($resultat);
-
-    //       for($j = 0; $j < 4; $j++) {
-    //         $competition = new Competition();
-    //         $competition->setCompetitions('competition'.$j)
-    //           ->addCompetition($competition);
-    //           $manager->persist($resultat);
-    //       }
-         
-          
-    //     }
-
-    //     $manager->flush();
-    // }
-
 }
