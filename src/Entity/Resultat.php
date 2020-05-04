@@ -29,7 +29,7 @@ class Resultat
     /**
      * @ORM\Column(type="datetime")
      */
-    private $moyenne_resultat;
+    private $resultat_final;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\categorie", inversedBy="resultats")
@@ -78,14 +78,14 @@ class Resultat
         return $this;
     }
 
-    public function getMoyenneResultat(): ?\DateTimeInterface
+    public function getResultat_final(): ?\DateTimeInterface
     {
-        return $this->moyenne_resultat;
+        return $this->resultat_final;
     }
 
-    public function setMoyenneResultat(\DateTimeInterface $moyenne_resultat): self
+    public function setResultat_final(\DateTimeInterface $resultat_final): self
     {
-        $this->moyenne_resultat = $moyenne_resultat;
+        $this->resultat_final = $resultat_final;
 
         return $this;
     }

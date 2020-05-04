@@ -36,7 +36,7 @@ final class Version20200502174825 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE resultat (id INT AUTO_INCREMENT NOT NULL, categorie_id INT DEFAULT NULL, resultat1 DATETIME NOT NULL, resultat2 DATETIME NOT NULL, moyenne_resultat DATETIME NOT NULL, INDEX IDX_E7DB5DE2BCF5E72D (categorie_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
+        $this->addSql('CREATE TABLE resultat (id INT AUTO_INCREMENT NOT NULL, categorie_id INT DEFAULT NULL, resultat1 DATETIME NOT NULL, resultat2 DATETIME NOT NULL, resultat_final DATETIME NOT NULL, INDEX IDX_E7DB5DE2BCF5E72D (categorie_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('ALTER TABLE resultat ADD CONSTRAINT FK_E7DB5DE2BCF5E72D FOREIGN KEY (categorie_id) REFERENCES categorie (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
         $this->addSql('ALTER TABLE competition ADD resultat_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE competition ADD CONSTRAINT FK_B50A2CB1D233E95C FOREIGN KEY (resultat_id) REFERENCES resultat (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
