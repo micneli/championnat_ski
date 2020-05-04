@@ -17,37 +17,34 @@ class Resultat
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="time", nullable=true)
      */
     private $resultat1;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="time", nullable=true)
      */
     private $resultat2;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="time", nullable=true)
      */
     private $resultat_final;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\categorie", inversedBy="resultats")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Competition", inversedBy="resultats")
      */
-    private $categorie;
+    private $competitions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\participant", inversedBy="resultats")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Participant")
      */
-    private $participant;
+    private $participants;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\competition", inversedBy="resultats")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie")
      */
-    private $competition;
+    private $categories;
 
     public function getId(): ?int
     {
@@ -59,7 +56,7 @@ class Resultat
         return $this->resultat1;
     }
 
-    public function setResultat1(\DateTimeInterface $resultat1): self
+    public function setResultat1(?\DateTimeInterface $resultat1): self
     {
         $this->resultat1 = $resultat1;
 
@@ -71,57 +68,57 @@ class Resultat
         return $this->resultat2;
     }
 
-    public function setResultat2(\DateTimeInterface $resultat2): self
+    public function setResultat2(?\DateTimeInterface $resultat2): self
     {
         $this->resultat2 = $resultat2;
 
         return $this;
     }
 
-    public function getResultat_final(): ?\DateTimeInterface
+    public function getResultatFinal(): ?\DateTimeInterface
     {
         return $this->resultat_final;
     }
 
-    public function setResultat_final(\DateTimeInterface $resultat_final): self
+    public function setResultatFinal(?\DateTimeInterface $resultat_final): self
     {
         $this->resultat_final = $resultat_final;
 
         return $this;
     }
 
-    public function getCategorie(): ?categorie
+    public function getCompetitions(): ?Competition
     {
-        return $this->categorie;
+        return $this->competitions;
     }
 
-    public function setCategorie(?categorie $categorie): self
+    public function setCompetitions(?Competition $competitions): self
     {
-        $this->categorie = $categorie;
+        $this->competitions = $competitions;
 
         return $this;
     }
 
-    public function getParticipant(): ?participant
+    public function getParticipants(): ?Participant
     {
-        return $this->participant;
+        return $this->participants;
     }
 
-    public function setParticipant(?participant $participant): self
+    public function setParticipants(?Participant $participants): self
     {
-        $this->participant = $participant;
+        $this->participants = $participants;
 
         return $this;
     }
 
-    public function getCompetition(): ?competition
+    public function getCategories(): ?Categorie
     {
-        return $this->competition;
+        return $this->categories;
     }
 
-    public function setCompetition(?competition $competition): self
+    public function setCategories(?Categorie $categories): self
     {
-        $this->competition = $competition;
+        $this->categories = $categories;
 
         return $this;
     }

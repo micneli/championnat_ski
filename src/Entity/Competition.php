@@ -19,17 +19,17 @@ class Competition
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $ville_comp;
+    private $ville_competition;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="date", nullable=true)
      */
-    private $date_comp;
+    private $date_competition;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="competition", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Resultat", mappedBy="competitions")
      */
     private $resultats;
 
@@ -38,33 +38,31 @@ class Competition
         $this->resultats = new ArrayCollection();
     }
 
-   
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getVilleComp(): ?string
+    public function getVilleCompetition(): ?string
     {
-        return $this->ville_comp;
+        return $this->ville_competition;
     }
 
-    public function setVilleComp(string $ville_comp): self
+    public function setVilleCompetition(?string $ville_competition): self
     {
-        $this->ville_comp = $ville_comp;
+        $this->ville_competition = $ville_competition;
 
         return $this;
     }
 
-    public function getDateComp(): ?string
+    public function getDateCompetition(): ?\DateTimeInterface
     {
-        return $this->date_comp;
+        return $this->date_competition;
     }
 
-    public function setDateComp(string $date_comp): self
+    public function setDateCompetition(?\DateTimeInterface $date_competition): self
     {
-        $this->date_comp = $date_comp;
+        $this->date_competition = $date_competition;
 
         return $this;
     }
@@ -81,7 +79,7 @@ class Competition
     {
         if (!$this->resultats->contains($resultat)) {
             $this->resultats[] = $resultat;
-            $resultat->setCompetition($this);
+            $resultat->setCompetitions($this);
         }
 
         return $this;
@@ -92,13 +90,11 @@ class Competition
         if ($this->resultats->contains($resultat)) {
             $this->resultats->removeElement($resultat);
             // set the owning side to null (unless already changed)
-            if ($resultat->getCompetition() === $this) {
-                $resultat->setCompetition(null);
+            if ($resultat->getCompetitions() === $this) {
+                $resultat->setCompetitions(null);
             }
         }
 
         return $this;
     }
-
-   
 }

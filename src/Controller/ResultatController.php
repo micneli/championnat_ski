@@ -1,10 +1,12 @@
 <?php
 
+
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class ResultatController
 {
@@ -28,5 +30,8 @@ class ResultatController
         return new Response($this->twig->render('resultat/index.html.twig')); // Charge home.html.twig
 
     }
+
+   
    
 }
+
