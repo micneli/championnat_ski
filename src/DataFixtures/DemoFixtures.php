@@ -27,43 +27,42 @@ class DemoFixtures extends Fixture
           ->setPrenomParticipant('prenom' . $j)
           ->addCategory($categorie);
         $manager->persist($participant);
+
+
+        for ($k = 0; $k < 4; $k++) { // boucle pour fixture competition
+
+          $date = \DateTime::createFromFormat('j-M-Y', '15-Feb-2009'); // creation format date
+          // $resultat = new Resultat();
+          $competition = new Competition();
+          $competition->setVilleCompetition('villeCompetition' . $k) //renvoie l'heure d'aujourd'hui
+
+            ->setDateCompetition(new \DateTime());
+            // ->addResultat($resultat);
+          $manager->persist($competition);
+
+          for ($l = 0; $l < 4; $l++) { //boucke pour fixture resultat
+
+            $time = \DateTime::createFromFormat('i:s.u', '03:01.012345Z'); // creation format date
+
+            $resultat = new Resultat();
+            // $competition = new Competition();
+            // $participant = new Participant();
+            // $categorie = new Categorie();
+
+            $resultat->setResultat1(new \DateTime()) //renvoie l'heure d'aujourd'hui
+
+              ->setResultat2(new \DateTime())
+              ->setResultatFinal(new \DateTime())
+              ->setCompetitions($competition)
+              ->setCategories($categorie)
+              ->setParticipants($participant);
+
+            $manager->persist($resultat);
+            // $manager->merge($competition, $categorie, $participant);
+          }
+        }
       }
     }
-
-    for ($l = 0; $l < 4; $l++) { //boucke pour fixture resultat
-
-      $time = \DateTime::createFromFormat('i:s.u', '03:01.012345Z'); // creation format date
-
-      $resultat = new Resultat();
-      $competition = new Competition();
-      $participant = new Participant();
-      $categorie = new Categorie();
-
-      $resultat->setResultat1(new \DateTime()) //renvoie l'heure d'aujourd'hui
-
-        ->setResultat2(new \DateTime())
-        ->setResultatFinal(new \DateTime());
-        // ->setCompetitions($competition)
-        // ->setCategories($categorie)
-        // ->setParticipants($participant);
-
-      $manager->persist($resultat);
-     // $manager->merge($competition, $categorie, $participant);
-    }
-
-    for ($k = 0; $k < 4; $k++) {
-
-      $date = \DateTime::createFromFormat('j-M-Y', '15-Feb-2009'); // creation format date
-      $resultat = new Resultat();
-      $competition = new Competition();
-      $competition->setVilleCompetition('villeCompetition' . $k) //renvoie l'heure d'aujourd'hui
-
-        ->setDateCompetition(new \DateTime())
-        ->addResultat($resultat);
-      $manager->merge($competition);
-    }
-
-
     $manager->flush();
   }
 }
