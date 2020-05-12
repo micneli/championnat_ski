@@ -7,7 +7,6 @@ use Doctrine\Persistence\ObjectManager;
 
 use App\Entity\Categorie;
 use App\Entity\Participant;
-<<<<<<< HEAD
 
 class DemoFixtures extends Fixture
 {
@@ -31,7 +30,6 @@ class DemoFixtures extends Fixture
 
         $manager->flush();
     }
-=======
 use App\Entity\Resultat;
 use App\Entity\Competition;
 
@@ -90,5 +88,4 @@ class DemoFixtures extends Fixture
     }
     $manager->flush();
   }
->>>>>>> c48502911a3b1fb69ffb6fbf4e58bd0e40fe0f3a
 }
