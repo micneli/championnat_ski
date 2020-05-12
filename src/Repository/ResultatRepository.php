@@ -47,4 +47,44 @@ class ResultatRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    // public function findResultats() {
+    //     return  $this->createQueryBuilder('r')
+    //         ->innerJoin('App\Entity\Participant', 'p', \Doctrine\ORM\Query\Expr\Join::WITH, 'p.id = r.participants.id')
+    //         ->innerJoin('App\Entity\Categorie', 'c', \Doctrine\ORM\Query\Expr\Join::WITH, 'c.id = r.categories.id')
+    //         ->innerJoin('App\Entity\Competition', 'o', \Doctrine\ORM\Query\Expr\Join::WITH, 'o.id = r.competitions.id')
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+
+    public function findResultats() {
+        $connection = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT p.nom_participant, p.prenom_participant, p.ville, c.nom_categorie, r.resultat_final from participant p, categorie c, resultat r WHERE p.id = r.participants_id AND r.categories_id = c.id';
+
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function findResultatsGeneralHommes() {
+        $connection = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT p.nom_participant, p.prenom_participant, p.ville, c.nom_categorie, r.resultat_final from participant p, categorie c, resultat r WHERE p.id = r.participants_id AND r.categories_id = c.id AND c.nom_categorie LIKE "%M" ';
+
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function findResultatsGeneralFemmes() {
+        $connection = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT p.nom_participant, p.prenom_participant, p.ville, c.nom_categorie, r.resultat_final from participant p, categorie c, resultat r WHERE p.id = r.participants_id AND r.categories_id = c.id AND c.nom_categorie LIKE "%F" ';
+
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
 }
