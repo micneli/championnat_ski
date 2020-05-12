@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 
 use App\Entity\Categorie;
 use App\Entity\Participant;
+<<<<<<< HEAD
 
 class DemoFixtures extends Fixture
 {
@@ -30,4 +31,64 @@ class DemoFixtures extends Fixture
 
         $manager->flush();
     }
+=======
+use App\Entity\Resultat;
+use App\Entity\Competition;
+
+class DemoFixtures extends Fixture
+{
+
+
+  public function load(ObjectManager $manager)
+  {
+
+    for ($i = 0; $i < 4; $i++) {
+      $categorie = new Categorie();
+      $categorie->setNomCategorie('categorie' . $i);
+      $manager->persist($categorie);
+      for ($j = 0; $j < 4; $j++) {
+        $participant = new Participant();
+        $participant->setNomParticipant('participant' . $j)
+          ->setPrenomParticipant('prenom' . $j)
+          ->addCategory($categorie);
+        $manager->persist($participant);
+
+
+        for ($k = 0; $k < 4; $k++) { // boucle pour fixture competition
+
+          $date = \DateTime::createFromFormat('j-M-Y', '15-Feb-2009'); // creation format date
+          // $resultat = new Resultat();
+          $competition = new Competition();
+          $competition->setVilleCompetition('villeCompetition' . $k) //renvoie l'heure d'aujourd'hui
+
+            ->setDateCompetition(new \DateTime());
+            // ->addResultat($resultat);
+          $manager->persist($competition);
+
+          for ($l = 0; $l < 4; $l++) { //boucke pour fixture resultat
+
+            $time = \DateTime::createFromFormat('i:s.u', '03:01.012345Z'); // creation format date
+
+            $resultat = new Resultat();
+            // $competition = new Competition();
+            // $participant = new Participant();
+            // $categorie = new Categorie();
+
+            $resultat->setResultat1(new \DateTime()) //renvoie l'heure d'aujourd'hui
+
+              ->setResultat2(new \DateTime())
+              ->setResultatFinal(new \DateTime())
+              ->setCompetitions($competition)
+              ->setCategories($categorie)
+              ->setParticipants($participant);
+
+            $manager->persist($resultat);
+            // $manager->merge($competition, $categorie, $participant);
+          }
+        }
+      }
+    }
+    $manager->flush();
+  }
+>>>>>>> c48502911a3b1fb69ffb6fbf4e58bd0e40fe0f3a
 }
