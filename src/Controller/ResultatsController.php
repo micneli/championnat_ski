@@ -29,8 +29,13 @@ class ResultatsController extends AbstractController
 
         $resultats = $resultatRepository->findResultats(); // the function findResultats() has to be declared within ResultatRepository.php
 
+        $message = [
+            'text_message' => 'Positions general'
+        ];
+
         return $this->render("resultats/resultats.html.twig", [
-            'resultats' => $resultats
+            'resultats' => $resultats,
+            'message' => $message
         ]);
     }
 
