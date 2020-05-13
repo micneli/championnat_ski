@@ -17,11 +17,11 @@ class DemoFixtures extends Fixture
   public function load(ObjectManager $manager)
   {
 
-    for ($i = 0; $i < 4; $i++) {
+    for ($i = 0; $i < 4; $i++) { // boucle fixture catégorie
       $categorie = new Categorie();
       $categorie->setNomCategorie('categorie' . $i);
       $manager->persist($categorie);
-      for ($j = 0; $j < 4; $j++) {
+      for ($j = 0; $j < 4; $j++) { // boucle fixture participant
         $participant = new Participant();
         $participant->setNomParticipant('participant' . $j)
           ->setPrenomParticipant('prenom' . $j)
@@ -32,24 +32,22 @@ class DemoFixtures extends Fixture
         for ($k = 0; $k < 4; $k++) { // boucle pour fixture competition
 
           $date = \DateTime::createFromFormat('j-M-Y', '15-Feb-2009'); // creation format date
-          // $resultat = new Resultat();
+      
           $competition = new Competition();
           $competition->setVilleCompetition('villeCompetition' . $k) //renvoie l'heure d'aujourd'hui
 
             ->setDateCompetition(new \DateTime());
-            // ->addResultat($resultat);
+     
           $manager->persist($competition);
 
-          for ($l = 0; $l < 4; $l++) { //boucke pour fixture resultat
+          for ($l = 0; $l < 4; $l++) { // boucke pour fixture resultat
 
-            $time = \DateTime::createFromFormat('i:s.u', '03:01.012345Z'); // creation format date
+            $time = \DateTime::createFromFormat('i:s.u', '03:01.012345Z'); // creation format time
 
             $resultat = new Resultat();
-            // $competition = new Competition();
-            // $participant = new Participant();
-            // $categorie = new Categorie();
 
-            $resultat->setResultat1(new \DateTime()) //renvoie l'heure d'aujourd'hui
+
+            $resultat->setResultat1(new \DateTime()) // renvoie l'heure d'aujourd'hui
 
               ->setResultat2(new \DateTime())
               ->setResultatFinal(new \DateTime())
@@ -58,7 +56,7 @@ class DemoFixtures extends Fixture
               ->setParticipants($participant);
 
             $manager->persist($resultat);
-            // $manager->merge($competition, $categorie, $participant);
+
           }
         }
       }

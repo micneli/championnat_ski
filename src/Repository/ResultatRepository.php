@@ -19,32 +19,31 @@ class ResultatRepository extends ServiceEntityRepository
         parent::__construct($registry, Resultat::class);
     }
 
-    // /**
-    //  * @return Resultat[] Returns an array of Resultat objects
-    //  */
-    /*
-    public function findByExampleField($value)
+  
+    public function findResultat($id)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        // $em = $this->getEntityManager();
 
-    /*
-    public function findOneBySomeField($value): ?Resultat
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        // $query = $em->createQuery(
+        //     "SELECT * FROM `resultat`ORDER BY categories_id = $id ,resultat_final DESC"
+        // )->setParameter('categories_id', $id);
+
+        // // returns an array of Product objects
+        // return $query->getResult();
+
+
+    // $offset = (int)$_GET['offset'];
+    // $limit = (int)$_GET['limit'];
+
+    return $this->createQueryBuilder('r')
+    ->select("r")
+    ->from('Resultat', 'r')
+    ->orderBy('categorie_id', $id)
+    ->orderBy('resultat_final', 'DESC')
+    //->setFirstResult( $offset )
+    //->setMaxResults( $limit )
+    ->getQuery()
+    ->getResult();
+
     }
-    */
 }
