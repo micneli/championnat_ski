@@ -19,31 +19,45 @@ class ResultatRepository extends ServiceEntityRepository
         parent::__construct($registry, Resultat::class);
     }
 
-  
-    public function findResultat($id)
-    {
-        // $em = $this->getEntityManager();
-
-        // $query = $em->createQuery(
-        //     "SELECT * FROM `resultat`ORDER BY categories_id = $id ,resultat_final DESC"
-        // )->setParameter('categories_id', $id);
-
-        // // returns an array of Product objects
-        // return $query->getResult();
 
 
-    // $offset = (int)$_GET['offset'];
-    // $limit = (int)$_GET['limit'];
+    // public function findResultats() {
+    //     return  $this->createQueryBuilder('r')
+    //         ->innerJoin('App\Entity\Participant', 'p', \Doctrine\ORM\Query\Expr\Join::WITH, 'p.id = r.participants.id')
+    //         ->innerJoin('App\Entity\Categorie', 'c', \Doctrine\ORM\Query\Expr\Join::WITH, 'c.id = r.categories.id')
+    //         ->innerJoin('App\Entity\Competition', 'o', \Doctrine\ORM\Query\Expr\Join::WITH, 'o.id = r.competitions.id')
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
 
-    return $this->createQueryBuilder('r')
-    ->select("r")
-    ->from('Resultat', 'r')
-    ->orderBy('categorie_id', $id)
-    ->orderBy('resultat_final', 'DESC')
-    //->setFirstResult( $offset )
-    //->setMaxResults( $limit )
-    ->getQuery()
-    ->getResult();
+    public function findResultats() {
+        $connection = $this->getEntityManager()->getConnection();
 
+        $sql = 'SELECT p.nom_participant, p.prenom_participant, p.ville, c.nom_categorie, r.resultat_final from participant p, categorie c, resultat r WHERE p.id = r.participants_id AND r.categories_id = c.id';
+
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function findResultatsGeneralHommes() {
+        $connection = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT p.nom_participant, p.prenom_participant, p.ville, c.nom_categorie, r.resultat_final from participant p, categorie c, resultat r WHERE p.id = r.participants_id AND r.categories_id = c.id AND c.nom_categorie LIKE "%M" ';
+
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function findResultatsGeneralFemmes() {
+        $connection = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT p.nom_participant, p.prenom_participant, p.ville, c.nom_categorie, r.resultat_final from participant p, categorie c, resultat r WHERE p.id = r.participants_id AND r.categories_id = c.id AND c.nom_categorie LIKE "%F" ';
+
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll();
     }
 }
