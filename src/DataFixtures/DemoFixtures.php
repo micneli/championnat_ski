@@ -8,7 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Categorie;
 use App\Entity\Participant;
 
-class DemoFixtures extends Fixture
+/*class DemoFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
@@ -29,7 +29,7 @@ class DemoFixtures extends Fixture
         }
 
         $manager->flush();
-    }
+    }*/
 use App\Entity\Resultat;
 use App\Entity\Competition;
 
