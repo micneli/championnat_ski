@@ -7,6 +7,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Resultat;
 use App\Repository\ResultatRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+
+
 
 class ResultatsController extends AbstractController
 {
@@ -75,5 +79,37 @@ class ResultatsController extends AbstractController
             'resultats' => $resultats,
             'message' => $message
         ]);
+    }
+
+
+        /**
+        * @Route("/resultats/data", name="data")
+        *
+        */
+
+    public function test(ResultatRepository $repo, Request $request){
+
+        $number = $request->request->get('select');
+        $data=[];
+
+        switch ($number) {
+            case '1':
+                
+               $data= $repo->findResultats();
+                // if you know the data to send when creating the response
+              return  new JsonResponse($data);
+
+                break;
+            case '2':
+
+                $data= $repo->findResultatsGeneralHommes();
+                // if you know the data to send when creating the response
+              return  new JsonResponse($data);
+
+            default:
+                # code...
+                break;
+        }
+
     }
 }

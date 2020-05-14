@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
 index:
    path: /
    controller: App\Controller\ResultatsController::index
+=======
+index:
+   path: /
+   controller: App\Controller\ResultatsController::index
+
+>>>>>>> de2298e55ef41cea487ccda556bb97e4db96f25d
